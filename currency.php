@@ -49,8 +49,8 @@ class CURRENCY {
         */
         public function set_base_currency ($currency = 'EUR') {
             if (!array_key_exists($currency, $this->exchange_rates)) {
-                $this->error = 'Unknown cerrency.';
-                throw new Exception('Unknown cerrency.');
+                $this->error = 'Unknown currency.';
+                throw new Exception('Unknown currency.');
             }
             $this->base_currency = $currency;
             $factor = $this->exchange_rates[$this->base_currency];
@@ -73,7 +73,7 @@ class CURRENCY {
             if ($to == '') $to = $this->base_currency;
             if (!array_key_exists($from, $this->exchange_rates) || !array_key_exists($to, $this->exchange_rates)) {
                     $this->error = 'Unknown cerrency.';
-					throw new Exception('Unknown cerrency.');
+					throw new Exception('Unknown currency.');
             }
             else {
                 $converted = (float)$ammount * ((float)$this->exchange_rates[$to] / (float)$this->exchange_rates[$from]);
@@ -92,7 +92,7 @@ class CURRENCY {
         */
         public function cross_rate ($from, $to) {
             if (!array_key_exists($from, $this->exchange_rates) || !array_key_exists($from, $this->exchange_rates)) {
-                    $this->error = 'Unknown cerrency.';
+                    $this->error = 'Unknown currency.';
 					throw new Exception('Unknown cerrency.');
             }
             else {
@@ -118,8 +118,8 @@ class CURRENCY {
 			define("_BASE_CURRENCY_REFERENCE", "Всички курсове са за 1 ");
 			define("_CURRENCY_STRING", "Валута");
 			define("_RATE_STRING", "Курс");
-            $this->rates_table = '<p align="center"><b>' . _TABLE_TITLE . '</b></p>';
-            $this->rates_table .= '<p align="center">' . _BASE_CURRENCY_REFERENCE . $this->base_currency . '</p>';
+            $this->rates_table = '<div class="rates_table_container"><p class="rates_table_title" align="center"><b>' . _TABLE_TITLE . '</b></p>';
+            $this->rates_table .= '<p class="rates_table_reference" align="center">' . _BASE_CURRENCY_REFERENCE . $this->base_currency . '</p>';
             $this->rates_table .= '<table class="rates_table"><tr><th>' . _CURRENCY_STRING . '</th><th>' . _RATE_STRING . '</th></tr>';
             if ($visible[0] == 'all') {
                 foreach ($this->exchange_rates as $curr => $rate) {
@@ -132,7 +132,7 @@ class CURRENCY {
                                 $this->exchange_rates[$visible[$i]] . '</td></tr>');
                 }
             }
-            $this->rates_table .= '</table>';
+            $this->rates_table .= '</table></div>';
             return $this->rates_table;
         }
 
