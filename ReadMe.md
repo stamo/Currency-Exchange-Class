@@ -58,7 +58,7 @@ Return: Float - the cross rate on success
 Exceptions: Throws exception if currency code is not in currency list
 
 `get_rates_table ($visible = array('all'))` 
-This method generates the html rates table based on Base currency. You can perform some basic styling using `rates_table` class. I know that the HTML code could be better and this is my first TODO.
+This method generates the html rates table based on Base currency. You can perform some basic styling using classes `rates_table`, `rates_table_container`, `rates_table_title` and `rates_table_reference`. 
 
 Parameters: `Array $visible` list of Currencies to be included in the table. All currencies by default. In general you want need to show all currencies provided by ECB, so you can choose which to show by submitting an array with currency codes.
 
