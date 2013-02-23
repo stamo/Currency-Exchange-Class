@@ -66,14 +66,14 @@ class CURRENCY {
         * @param String $from Currency of the ammount (three letter code)
         * @param String $to Currency to witch we wish to exchange. Base currency if not specified.
         * @return Float - the exchanged ammount on success
-		* @Throw exception if currency code is not in currency list
+        * @Throw exception if currency code is not in currency list
         * @access Public
         */
         public function exchange ($ammount, $from, $to = '') {
             if ($to == '') $to = $this->base_currency;
             if (!array_key_exists($from, $this->exchange_rates) || !array_key_exists($to, $this->exchange_rates)) {
                     $this->error = 'Unknown cerrency.';
-					throw new Exception('Unknown currency.');
+                    throw new Exception('Unknown currency.');
             }
             else {
                 $converted = (float)$ammount * ((float)$this->exchange_rates[$to] / (float)$this->exchange_rates[$from]);
@@ -87,13 +87,13 @@ class CURRENCY {
         * @param String $from first Currency (three letter code)
         * @param String $to second Currency (three letter code)
         * @return Float - the cross rate on success
-		* @Throw exception if currency code is not in currency list
+        * @Throw exception if currency code is not in currency list
         * @access Public
         */
         public function cross_rate ($from, $to) {
             if (!array_key_exists($from, $this->exchange_rates) || !array_key_exists($from, $this->exchange_rates)) {
                     $this->error = 'Unknown currency.';
-					throw new Exception('Unknown cerrency.');
+                    throw new Exception('Unknown cerrency.');
             }
             else {
                 $converted = (float)$this->exchange_rates[$to] / (float)$this->exchange_rates[$from];
@@ -106,18 +106,18 @@ class CURRENCY {
         *
         * @param Array $visible list of Currencies to be included in the table. All currencies by default.
         * @return String HTML formated table with exchange rates
-		* @Can be styled with CSS selector .rates_table
+        * @Can be styled with CSS selector .rates_table
         * @access Public
-		* define("_TABLE_TITLE", "Reference rates of European Central Bank");
-		* define("_BASE_CURRENCY_REFERENCE", "All rates are for 1 ");
-		* define("_CURRENCY_STRING", "Currency");
-		* define("_RATE_STRING", "Rate");
+        * define("_TABLE_TITLE", "Reference rates of European Central Bank");
+        * define("_BASE_CURRENCY_REFERENCE", "All rates are for 1 ");
+        * define("_CURRENCY_STRING", "Currency");
+        * define("_RATE_STRING", "Rate");
         */
         public function get_rates_table ($visible = array('all')) {
-			define("_TABLE_TITLE", "Референтни курсове на Европейската Централна Банка");
-			define("_BASE_CURRENCY_REFERENCE", "Всички курсове са за 1 ");
-			define("_CURRENCY_STRING", "Валута");
-			define("_RATE_STRING", "Курс");
+            define("_TABLE_TITLE", "Референтни курсове на Европейската Централна Банка");
+            define("_BASE_CURRENCY_REFERENCE", "Всички курсове са за 1 ");
+            define("_CURRENCY_STRING", "Валута");
+            define("_RATE_STRING", "Курс");
             $this->rates_table = '<div class="rates_table_container"><p class="rates_table_title" align="center"><b>' . _TABLE_TITLE . '</b></p>';
             $this->rates_table .= '<p class="rates_table_reference" align="center">' . _BASE_CURRENCY_REFERENCE . $this->base_currency . '</p>';
             $this->rates_table .= '<table class="rates_table"><tr><th>' . _CURRENCY_STRING . '</th><th>' . _RATE_STRING . '</th></tr>';
@@ -127,9 +127,10 @@ class CURRENCY {
                 }
             } else {
                 for ($i = 0; $i < sizeof($visible); $i++) {
-                    if (array_key_exists($visible[$i], $this->exchange_rates))
+                    if (array_key_exists($visible[$i], $this->exchange_rates)) {
                         $this->rates_table .= ('<tr><td>' . $visible[$i] . '</td><td align="right">' . 
-                                $this->exchange_rates[$visible[$i]] . '</td></tr>');
+                        $this->exchange_rates[$visible[$i]] . '</td></tr>');
+                    }
                 }
             }
             $this->rates_table .= '</table></div>';
